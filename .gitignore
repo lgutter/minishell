@@ -50,3 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# local config / test files
+.vscode/
+minishell
+minitest
+
+# coverage files
+*.gcov
+*.gcno
+*.gcda
