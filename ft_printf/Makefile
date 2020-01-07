@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/06 15:03:33 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/07 15:18:48 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ include Source_files/printfsources
 include libft/libftsources
 include libft/covsources
 
-JUNK := **/*~ **/\#*\# **/.DS_Store *~ \#*\# .DS_Store
+JUNK = $(shell find -E . -regex ".*(\..*~|\#.*\#|\.DS_Store)" 2>/dev/null)
 
 OBJECTS := $(PRINTFSOURCES:%=Source_files/%.o)
-LFTOBJECTS = $(LFTSOURCES:%=libft/%.o)
-LFTOBJECTS += $(COVSOURCES:%=libft/%.o)
+OBJECTS += $(LFTSOURCES:%=libft/%.o)
+OBJECTS += $(COVSOURCES:%=libft/%.o)
 
 INCL_PATH := -I. -I./libft/
 HEADER := ft_printf.h
@@ -27,36 +27,25 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME := libftprintf.a
 
-C_RESET=\033[0;00m
-C_CLEAN=\033[38;5;194m
-C_FCLEAN=\033[38;5;156m
-C_LIB=\033[38;5;34m
-C_OBJECTS=\033[38;5;220m
-C_LINES=\033[38;5;250m
+PLUS = \033[38;5;35m| + |\033[0;00m
+MINUS = \033[38;5;214m| - |\033[0;00m
 
 all: $(NAME)
 
-$(NAME): $(LFTOBJECTS) $(OBJECTS) $(HEADER)
-	@echo "$(C_LINES)- - - - - - - - - -$(C_RESET)"
+$(NAME): $(OBJECTS) $(HEADER)
 	@ar rc $@ $^
 	@ranlib $@
-	@echo "$(C_LIB)Libftprintf.a has been compiled$(C_RESET)\n"
-
+	@echo "$(PLUS) compiled: $@"
 
 %.o: %.c
 	@gcc -c $< $(CFLAGS) $(INCL_PATH) -o $@
-	@echo "$(C_OBJECTS)$@ compiled$(C_RESET)"
+	@echo "$(PLUS) compiled: $@"
 
 clean:
-	@rm -rf $(OBJECTS) $(JUNK)
-	@echo "$(C_CLEAN)Junk & Object files removed$(C_RESET)"
-	@$(MAKE) clean -C libft/
+	@rm -rfv $(JUNK) $(OBJECTS) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 fclean: clean
-	@rm -rf $(NAME)
-	@echo "$(C_FCLEAN)$(NAME) removed$(C_RESET)"
-	@echo "$(C_LINES)- - - - - - - - - -$(C_RESET)"
-	@$(MAKE) fclean -C libft/
+	@rm -rfv $(NAME) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 re: fclean all
 

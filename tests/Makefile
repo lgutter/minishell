@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/06 15:15:06 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/07 13:46:30 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,22 +29,21 @@ all: $(NAME)
 
 $(NAME): $(MINI) $(OBJECTS)
 	@$(CC) $(OBJECTS) $(CFLAGS) -o $@
-	@echo "$(PLUS) $(NAME) has been compiled"
+	@echo "$(PLUS) compiled: $(NAME)"
 
 $(MINI): FORCE
 	@$(MAKE) -C ../
 
 %.o: %.c
 	@$(CC) -c $< $(CFLAGS) $(INCLPATH) -o $@
-	@echo "$(PLUS) $@ compiled"
+	@echo "$(PLUS) compiled: $@"
 
 clean:
 	@rm -rf $(OBJECTS)
-	@echo "$(MINUS) $(NAME) object files removed"
+	@rm -rfv $(OBJECTS) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 fclean: clean
-	@rm -rf $(NAME)
-	@echo "$(MINUS) $(NAME) removed"
+	@rm -rfv $(NAME) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 re: fclean all
 
