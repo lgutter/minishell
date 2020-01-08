@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/07 15:30:57 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/07 16:27:01 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ test: $(NAME)
 
 %.o: %.c
 	@gcc -c $< $(CFLAGS) $(INCLPATH) -o $@
-	@echo "$(PLUS) compiled: $@\n"
+	@echo "$(PLUS) compiled: $@"
 
 lclean:
 	@rm -rfv $(JUNK) $(OBJECTS) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'

@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/07 15:18:48 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/08 10:31:03 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJECTS += $(COVSOURCES:%=libft/%.o)
 INCL_PATH := -I. -I./libft/
 HEADER := ft_printf.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 NAME := libftprintf.a
 
