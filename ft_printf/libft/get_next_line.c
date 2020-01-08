@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/14 14:37:52 by lgutter       #+#    #+#                 */
-/*   Updated: 2019/02/14 14:37:53 by lgutter       ########   odam.nl         */
+/*   Created: 2019/02/14 14:37:52 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/08 10:36:37 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int				get_next_line(const int fd, char **line)
 	*line = NULL;
 	size = 0;
 	ret = cache_pull(fd, &start, line, &size);
+	if (line == NULL)
+		return (-1);
 	while (ft_memchr(*line, '\n', size) == NULL && ret != 0)
 	{
 		ret = read(fd, buffer, BUFF_SIZE);
