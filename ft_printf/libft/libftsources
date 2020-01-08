@@ -69,4 +69,6 @@ ft_memdelsize \
 ft_nbrlenbase \
 ft_lstlen \
 ft_lstaddback \
-ft_lstaddnext
+ft_lstaddnext \
+get_next_line
+
