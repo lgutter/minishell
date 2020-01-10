@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/10 17:29:34 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/08 10:05:10 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/10 17:54:48 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int					ft_memcmp(const void *source1, const void *source2,
 								size_t len);
 size_t				ft_strlen(const char *string);
 char				*ft_strdup(const char *string);
+char				*ft_strcdup(const char *string, char delim);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *string1, const char *string2);
@@ -96,8 +97,7 @@ t_list				*ft_lstmap(t_list *list, t_list *(*f)(t_list *elem));
 long				ft_absneg(long integer);
 long				ft_abspos(long integer);
 int					ft_iswhitespace(char character);
-size_t				ft_strlenc(const char *string, int delim,
-								size_t size);
+size_t				ft_strlenc(const char *string, int delim, size_t size);
 void				*ft_memrcpy(void *dst, const void *src, size_t len);
 void				*ft_memdup(const void *source, size_t len);
 void				*ft_memcdup(const void *source, int delim, size_t size);
