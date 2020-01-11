@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/10 18:14:20 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/11 20:18:17 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@
 /*
 **	list of defines for errid.
 */
-# define E_MALLOCFAIL 1
+# define ERR_MALLOCFAIL 1
+# define ERR_ACCESS 2
 
 /*
 **	typedef for our error tracking variable errid.
 **	like the system errno, it contains a numerical error code.
-**	Possible error codes are defined with the prefix 'ER_'.
+**	Possible error codes are defined with the prefix 'ERR_'.
 */
-typedef int		t_errid;
+typedef unsigned char	t_errid;
 
 /*
 **	Struct to store info about the command to execute. Fields:
@@ -45,13 +46,13 @@ typedef int		t_errid;
 **	argc:		amount of arguments for command.
 **	argv:		list of arguments for command, extracted from input.
 */
-typedef struct	s_command
+typedef struct			s_command
 {
-	char		*input;
-	char		*command;
-	int			argc;
-	char		**argv;
-}				t_command;
+	char			*input;
+	char			*command;
+	int				argc;
+	char			**argv;
+}						t_command;
 
 /*
 **	Struct to store the environment variables in a linked list. Fields:
@@ -59,19 +60,19 @@ typedef struct	s_command
 **	value:	The value of the variable. i.e. /Users/lgutter
 **	next:	A pointer to the next element in the list of env variables
 */
-typedef struct	s_env
+typedef struct			s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-}				t_env;
+}						t_env;
 
 /*
 **	converts the system char **environ to a linked list of our type t_env
 **	returns the start of the list on succes, or NULL on failure.
 **	(on failure, errid will be set to error code)
 */
-t_env			*ft_dup_sys_env(t_errid *errid);
+t_env					*ft_dup_sys_env(t_errid *errid);
 
 /*
 **	takes the env and a key as argument and returns the value.
@@ -79,7 +80,7 @@ t_env			*ft_dup_sys_env(t_errid *errid);
 **	when an error occurs, returns NULL.
 **	(on failure, errid will be set to error code)
 */
-char			*ft_getenv(t_env *env, const char *key);
+char					*ft_getenv(t_env *env, const char *key);
 
 /*
 **	Takes env, a key, value, and either 'y' or 'n' as arguments.
@@ -89,8 +90,8 @@ char			*ft_getenv(t_env *env, const char *key);
 **	'0' on succes, '-1' on failure.
 **	(on failure, errid will be set to error code)
 */
-int				ft_setenv(t_env *env, const char *key, const char *value,
-							char overwrite);
+int						ft_setenv(t_env *env, const char *key,
+									const char *value, char overwrite);
 
 /*
 **	takes env and a key as argument and removes it from our environment.
@@ -98,20 +99,20 @@ int				ft_setenv(t_env *env, const char *key, const char *value,
 **	'0' on succes, '-1' on failure.
 **	(on failure, errid will be set to error code)
 */
-int				ft_unsetenv(t_env *env, const char *key);
+int						ft_unsetenv(t_env *env, const char *key);
 
 /*
 **	converts our linked list of type t_env to the the system style char **envp.
 **	returns the an char ** on succes, or NULL on failure.
 **	(on failure, errid will be set to error code)
 */
-char			**ft_convert_env_to_envp(t_env **list_start);
+char					**ft_convert_env_to_envp(t_env **list_start);
 
 /*
 **	prints an error message relevant for the value of errid,
 **	and resets errid to 0.
 **	returns the previous value of errid.
 */
-int				ft_print_error(t_errid *errid);
+int						ft_print_error(t_errid *errid);
 
 #endif
