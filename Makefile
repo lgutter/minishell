@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/07 16:27:01 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/11 14:06:40 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ $(LIBFT): FORCE
 
 test: $(NAME)
 	@$(MAKE) -C tests/
+
+norm:
+	@../norm.sh incl srcs Makefile
 
 %.o: %.c
 	@gcc -c $< $(CFLAGS) $(INCLPATH) -o $@
