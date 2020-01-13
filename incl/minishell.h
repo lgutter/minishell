@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/11 20:18:17 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 12:08:15 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,17 @@
 # define SHELL_PROMPT "\033[38;5;75m -ish > \033[0;00m"
 
 /*
-**	list of defines for errid.
+**	the total amount of errors. Error codes start at 0.
+**	this is used to determine the length of the array holding the errors,
+**	and to check if an error code is valid.
 */
+# define ERR_COUNT 3
+
+/*
+**	list of defines for errid.
+**	The total amount of errors is defined by ERR_COUNT.
+*/
+# define ERR_NOERR 0
 # define ERR_MALLOCFAIL 1
 # define ERR_ACCESS 2
 
