@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 20:10:09 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 16:56:24 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 18:02:22 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,3 @@ Test(unit_ft_print_error, mandatory_basic_print_unknown_error, .init = redirect_
 	fflush(stderr);
 	cr_assert_stderr_eq_str("-ish: Invalid error code\n");
 }
-
-
