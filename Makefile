@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/11 20:28:41 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/13 14:14:48 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ MAIN := srcs/main.o
 
 CFLAGS := -Wall -Wextra -Werror -g
 
+JUNK += $(OBJS:%.o= %.gcda)
 ifdef CV
 	CFLAGS += -coverage
-	JUNK += $(MINISRCS:%= srcs/%.gcda)
 endif
 
 NAME := minishell
@@ -41,14 +41,14 @@ $(NAME): $(LIBFT) $(OBJS) $(MAIN) $(HEADER)
 $(LIBFT): FORCE
 	@$(MAKE) -C ft_printf/
 
-test: $(NAME)
+test:
 	@$(MAKE) -C tests/
 
 norm:
 	@../norm.sh incl srcs Makefile
 
 gcov:
-	@gcov $(OBJS) $(MAIN)
+	@gcov $(OBJS)
 
 %.o: %.c
 	@gcc -c $< $(CFLAGS) $(INCLPATH) -o $@
@@ -63,13 +63,17 @@ clean: lclean
 
 lfclean: lclean
 	@rm -rfv $(NAME) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(OBJS:%.o= %.gcno) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(MINISRCS:%= %.gcov) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 fclean: lfclean
 	@$(MAKE) fclean -C tests/
 	@$(MAKE) fclean -C ft_printf/
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) all
 
 FORCE:
 
-.PHONY: all clean lclean lfclean fclean re FORCE
+.PHONY: all test clean lclean lfclean fclean re FORCE
