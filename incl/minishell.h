@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 12:08:15 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 17:22:50 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 **	this is used to determine the length of the array holding the errors,
 **	and to check if an error code is valid.
 */
-# define ERR_COUNT 3
+# define ERR_COUNT 6
 
 /*
 **	list of defines for errid.
@@ -40,6 +40,9 @@
 # define ERR_NOERR 0
 # define ERR_MALLOCFAIL 1
 # define ERR_ACCESS 2
+# define ERR_ENVNOWRITE 3
+# define ERR_ENVNOTFOUND 4
+# define ERR_EMPTYENV 5
 
 /*
 **	typedef for our error tracking variable errid.
@@ -79,7 +82,7 @@ typedef struct			s_env
 /*
 **	converts the system char **environ to a linked list of our type t_env
 **	returns the start of the list on succes, or NULL on failure.
-**	(on failure, errid will be set to error code)
+**	(on failure, error will be printed)
 */
 t_env					*ft_dup_sys_env(t_errid *errid);
 
@@ -87,7 +90,7 @@ t_env					*ft_dup_sys_env(t_errid *errid);
 **	takes the env and a key as argument and returns the value.
 **	example: 'ft_getenv("PWD");' will return the path of our current directory.
 **	when an error occurs, returns NULL.
-**	(on failure, errid will be set to error code)
+**	(on failure, error will be printed)
 */
 char					*ft_getenv(t_env *env, const char *key);
 
@@ -96,8 +99,8 @@ char					*ft_getenv(t_env *env, const char *key);
 **	If 'key' exists in env and 'overwrite' is 'y', overwrites the value.
 **	If 'key' does not exist, adds it to env and sets the value.
 **	Returns the following:
-**	'0' on succes, '-1' on failure.
-**	(on failure, errid will be set to error code)
+**	0 on succes, an errid error code on failure.
+**	(on failure, error will be printed)
 */
 int						ft_setenv(t_env *env, const char *key,
 									const char *value, char overwrite);
@@ -113,15 +116,14 @@ int						ft_unsetenv(t_env *env, const char *key);
 /*
 **	converts our linked list of type t_env to the the system style char **envp.
 **	returns the an char ** on succes, or NULL on failure.
-**	(on failure, errid will be set to error code)
+**	(on failure, error will be printed)
 */
 char					**ft_convert_env_to_envp(t_env **list_start);
 
 /*
-**	prints an error message relevant for the value of errid,
-**	and resets errid to 0.
-**	returns the previous value of errid.
+**	prints an error message relevant for the value of errid.
+**	returns the given value of errid.
 */
-int						ft_print_error(t_errid *errid);
+int						ft_print_error(t_errid errid);
 
 #endif
