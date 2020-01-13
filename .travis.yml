@@ -1,0 +1,20 @@
+
+language: c
+os: osx
+sudo: true
+env:
+	global:
+        - CODECOV_TOKEN="fb5641ce-5938-4a57-8265-5c08a1a0d4f7"
+        - HOMEBREW_NO_AUTO_UPDATE=1
+branches:
+    only:
+        - master
+install:
+    - brew install snaipe/soft/criterion
+before_script:
+    - make test CV=1
+script:
+	- ./tests/minitest --verbose
+after_success:
+    - make gcov
+    - bash <(curl -s https://codecov.io/bash) -X gcov
