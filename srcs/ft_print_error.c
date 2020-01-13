@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:31:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 12:14:04 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 14:09:46 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static const char	*errid_to_str(t_errid errid)
 	return (errors[errid]);
 }
 
-int			ft_print_error(t_errid *errid)
+int					ft_print_error(t_errid *errid)
 {
 	int			ret;
 	const char	*error;
