@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/13 18:02:43 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/13 19:54:37 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ clean: lclean
 lfclean: lclean
 	@rm -rfv $(NAME) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 	@rm -rfv $(OBJS:%.o= %.gcno) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
-	@rm -rfv $(MINISRCS:%= %.gcov) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(MINISRCS:%= %.c.gcov) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 fclean: lfclean
 	@$(MAKE) fclean -C tests/
