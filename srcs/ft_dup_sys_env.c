@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:35:25 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/10 18:04:40 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/11 16:30:05 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 
 	new = (t_env *)ft_memalloc(sizeof(t_env) * 1);
 	if (new == NULL)
-		*errid = E_MALLOCFAIL;
+		*errid = ERR_MALLOCFAIL;
 	else
 	{
 		new->key = ft_strcdup(env_variable, '=');
