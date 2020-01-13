@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:35:25 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/11 16:30:05 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 17:43:29 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 		new->key = ft_strcdup(env_variable, '=');
 		new->value = ft_strdup(&(
 	env_variable[ft_strlenc(env_variable, '=', ft_strlen(env_variable)) + 1]));
+		if (new->key == NULL || new->value == NULL)
+		{
+			*errid = ERR_MALLOCFAIL;
+			return (NULL);
+		}
 	}
+	new->next = NULL;
 	return (new);
 }
 

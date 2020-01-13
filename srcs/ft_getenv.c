@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_getenv.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/06 15:16:07 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 16:57:19 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/13 15:49:17 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/13 16:58:05 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(void)
+char	*ft_getenv(t_env *env, const char *key)
 {
-	t_command	command;
-	t_errid		errid;
-	t_env		*env_start;
+	t_env *current;
 
-	env_start = ft_dup_sys_env(&errid);
-	if (env_start == NULL)
-		ft_print_error(errid);
-	while (1)
+	current = env;
+	while (current != NULL)
 	{
-		ft_printf(SHELL_PROMPT);
-		get_next_line(0, &(command.input));
-		ft_printf("you wrote: >%s<\n", command.input);
-		if (ft_strcmp(command.input, "exit") == 0)
+		if (ft_strcmp(key, current->key) == 0)
 		{
-			ft_dprintf(2, "exit\n");
-			exit(0);
+			return (current->value);
 		}
-		free(command.input);
+		current = current->next;
 	}
-	return (0);
+	ft_print_error(ERR_ENVNOTFOUND);
+	return (NULL);
 }

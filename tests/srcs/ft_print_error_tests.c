@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/11 20:10:09 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 12:25:53 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 18:02:22 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Test(unit_ft_print_error, mandatory_basic_print_malloc_error, .init = redirect_s
 	t_errid	errid = errorcode;
 	int ret;
 
-	ret = ft_print_error(&errid);
+	ret = ft_print_error(errid);
 	cr_assert_eq(errorcode, ret);
 	fflush(stderr);
 	cr_assert_stderr_eq_str("-ish: Failure to allocate memory\n");
@@ -38,7 +38,7 @@ Test(unit_ft_print_error, mandatory_basic_print_none_error, .init = redirect_std
 	t_errid	errid = errorcode;
 	int ret;
 
-	ret = ft_print_error(&errid);
+	ret = ft_print_error(errid);
 	cr_assert_eq(errorcode, ret);
 	fflush(stderr);
 	cr_assert_stderr_eq_str("-ish: Error state without error\n");
@@ -50,25 +50,8 @@ Test(unit_ft_print_error, mandatory_basic_print_unknown_error, .init = redirect_
 	t_errid	errid = errorcode;
 	int ret;
 
-	ret = ft_print_error(&errid);
+	ret = ft_print_error(errid);
 	cr_assert_eq(errorcode, ret);
 	fflush(stderr);
 	cr_assert_stderr_eq_str("-ish: Invalid error code\n");
 }
-
-Test(unit_ft_print_error, mandatory_coverage_check_all_valid_errors_ret_codes, .init = redirect_std_error)
-{
-	t_errid errorcode = 0;
-	int ret;
-
-	while (errorcode < ERR_COUNT)
-	{
-		t_errid	errid = errorcode;
-		ret = ft_print_error(&errid);
-		cr_assert_eq(errorcode, ret);
-		fflush(stderr);
-		errorcode++;
-	}
-}
-
-
