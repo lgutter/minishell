@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/07 16:27:01 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/13 14:14:48 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,18 @@ include srcs/minisrcs
 
 JUNK = $(shell find -E . -regex ".*(\..*~|\#.*\#|\.DS_Store)" 2>/dev/null)
 
-CSOURCES := $(MINISRCS:%= srcs/%.c)
-OBJECTS := $(MINISRCS:%= srcs/%.o)
-
+OBJS := $(MINISRCS:%= srcs/%.o)
 LIBFT := ft_printf/libftprintf.a
 INCLPATH := -I ./incl -I ./ft_printf
 HEADER := incl/minishell.h
+MAIN := srcs/main.o
 
 CFLAGS := -Wall -Wextra -Werror -g
+
+JUNK += $(OBJS:%.o= %.gcda)
+ifdef CV
+	CFLAGS += -coverage
+endif
 
 NAME := minishell
 
@@ -30,22 +34,28 @@ MINUS = \033[38;5;160m| - |\033[0;00m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJECTS) $(HEADER)
-	@gcc $(MAIN) $(OBJECTS) $(CFLAGS) $(LIBFT) -o $@
+$(NAME): $(LIBFT) $(OBJS) $(MAIN) $(HEADER)
+	@gcc $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) -o $@
 	@echo "$(PLUS) compiled: $@"
 
 $(LIBFT): FORCE
 	@$(MAKE) -C ft_printf/
 
-test: $(NAME)
+test:
 	@$(MAKE) -C tests/
+
+norm:
+	@../norm.sh incl srcs Makefile
+
+gcov:
+	@gcov $(OBJS)
 
 %.o: %.c
 	@gcc -c $< $(CFLAGS) $(INCLPATH) -o $@
 	@echo "$(PLUS) compiled: $@"
 
 lclean:
-	@rm -rfv $(JUNK) $(OBJECTS) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(JUNK) $(OBJS) $(MAIN)| sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 clean: lclean
 	@$(MAKE) clean -C tests/
@@ -53,13 +63,17 @@ clean: lclean
 
 lfclean: lclean
 	@rm -rfv $(NAME) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(OBJS:%.o= %.gcno) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
+	@rm -rfv $(MINISRCS:%= %.gcov) | sed -E $$'s/(.*)/$(MINUS) removed: \\1/g'
 
 fclean: lfclean
 	@$(MAKE) fclean -C tests/
 	@$(MAKE) fclean -C ft_printf/
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) all
 
 FORCE:
 
-.PHONY: all clean lclean lfclean fclean re FORCE
+.PHONY: all test clean lclean lfclean fclean re FORCE
