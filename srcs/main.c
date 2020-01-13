@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:07 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/10 17:53:25 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 16:57:19 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		main(void)
 
 	env_start = ft_dup_sys_env(&errid);
 	if (env_start == NULL)
-		ft_print_error(&errid);
+		ft_print_error(errid);
 	while (1)
 	{
 		ft_printf(SHELL_PROMPT);
