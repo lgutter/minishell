@@ -1,0 +1,2 @@
+TESTSRCS := ft_dup_sys_env_tests\
+ft_print_error_tests
