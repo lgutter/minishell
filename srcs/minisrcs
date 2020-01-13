@@ -1,2 +1,4 @@
 MINISRCS := ft_print_error\
-ft_dup_sys_env
+ft_dup_sys_env\
+ft_getenv\
+ft_setenv
