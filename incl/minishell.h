@@ -118,7 +118,7 @@ int						ft_unsetenv(t_env *env, const char *key);
 **	returns the an char ** on succes, or NULL on failure.
 **	(on failure, error will be printed)
 */
-char					**ft_convert_env_to_envp(t_env **list_start);
+char					**ft_convert_env_to_envp(t_env *list_start);
 
 /*
 **	prints an error message relevant for the value of errid.
