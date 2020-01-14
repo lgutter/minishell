@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 17:15:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 17:54:12 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/13 21:10:52 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ Test(unit_ft_setenv, mandatory_basic_set_new_simple, .init = redirect_std_err)
 	ret = ft_setenv(env, "TEST_KEY", "TEST_VALUE", 'n');
 	cr_assert_eq(ret, 0);
 	env = env->next;
+	cr_assert_str_eq(env->key, "TEST_KEY");
+	cr_assert_str_eq(env->value, "TEST_VALUE");
+	dprintf(2, "-");
+	fflush(stderr);
+	cr_assert_stderr_eq_str("-");
+}
+
+Test(unit_ft_setenv, mandatory_basic_set_new_empty_first_element, .init = redirect_std_err)
+{
+	int ret;
+	t_env *env;
+	t_env *second;
+
+	env = (t_env *)malloc(sizeof(t_env) * 1);
+	second = (t_env *)malloc(sizeof(t_env) * 1);
+	env->key = strdup("");
+	env->value = strdup("");
+	env->next = second;
+	second->key = strdup("FOO");
+	second->value = strdup("BAR");
+	second->next = NULL;
+	ret = ft_setenv(env, "TEST_KEY", "TEST_VALUE", 'n');
+	cr_assert_eq(ret, 0);
 	cr_assert_str_eq(env->key, "TEST_KEY");
 	cr_assert_str_eq(env->value, "TEST_VALUE");
 	dprintf(2, "-");

@@ -2,3 +2,4 @@ TESTSRCS := ft_dup_sys_env_tests\
 ft_print_error_tests\
 ft_getenv_tests\
 ft_setenv_tests\
+ft_unsetenv_tests\
