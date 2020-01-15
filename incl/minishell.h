@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/15 12:23:47 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/15 13:59:02 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int						ft_getstatus(t_env *env);
 
 /*
 **	Takes env and a status code and sets the status code as a str in env.
-**	returns 0 on succes, -1 on failure.
+**	returns 0 on succes, an errid error code on failure.
+**	(on failure, error will be printed)
 */
 int						ft_setstatus(t_env *env, int status);
 
