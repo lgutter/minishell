@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 20:23:11 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/15 13:59:02 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@
 /*
 **	the prompt to be displayed when input is expected.
 */
-# define SHELL_PROMPT "\033[38;5;75m -ish > \033[0;00m"
+# define SHELL_PROMPT "\033[38;5;75m -ish » \033[0;00m"
+
+/*
+**	the key for the status code in the environment.
+*/
+# define STATUS_CODE_KEY "STATUS_CODE"
 
 /*
 **	the total amount of errors. Error codes start at 0.
@@ -104,6 +109,19 @@ char					*ft_getenv(t_env *env, const char *key);
 */
 int						ft_setenv(t_env *env, const char *key,
 									const char *value, char overwrite);
+
+/*
+**	Takes env, and returs the current status code as an int.
+**	if an error occurs, it returns NULL, and an error is printed.
+*/
+int						ft_getstatus(t_env *env);
+
+/*
+**	Takes env and a status code and sets the status code as a str in env.
+**	returns 0 on succes, an errid error code on failure.
+**	(on failure, error will be printed)
+*/
+int						ft_setstatus(t_env *env, int status);
 
 /*
 **	takes env and a key as argument and removes it from our environment.
