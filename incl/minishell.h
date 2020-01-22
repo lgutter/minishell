@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/15 13:59:02 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/22 14:11:30 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 **	this is used to determine the length of the array holding the errors,
 **	and to check if an error code is valid.
 */
-# define ERR_COUNT 6
+# define ERR_COUNT 7
 
 /*
 **	list of defines for errid.
@@ -48,6 +48,7 @@
 # define ERR_ENVNOWRITE 3
 # define ERR_ENVNOTFOUND 4
 # define ERR_EMPTYENV 5
+# define ERR_INVALID_EXPANSION 6
 
 /*
 **	typedef for our error tracking variable errid.
@@ -58,17 +59,17 @@ typedef unsigned char	t_errid;
 
 /*
 **	Struct to store info about the command to execute. Fields:
-**	input:		the input as given by get_next_line.
-**	command:	just the command (without args) extracted from input.
+**	input:		the complete input as given by get_next_line.
 **	argc:		amount of arguments for command.
 **	argv:		list of arguments for command, extracted from input.
+**	envp:		the environmennt for the command.
 */
 typedef struct			s_command
 {
 	char			*input;
-	char			*command;
 	int				argc;
 	char			**argv;
+	char			**envp;
 }						t_command;
 
 /*
@@ -143,5 +144,55 @@ char					**ft_convert_env_to_envp(t_env *list_start);
 **	returns the given value of errid.
 */
 int						ft_print_error(t_errid errid);
+
+/*
+**	takes the command struct after
+**	get_next_line put the raw input in command.input,
+**	and splits it up into command.command, command.argc, and command.argv.
+**	it also takes an env_list and puts it in char ** format in command.envp.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_split_command(t_env *env_list, t_command *command);
+
+/*
+**	Takes a command struct after get_next_line parsed the input,
+**	and handles it accordingly with the provided env_list:
+**	It splits it up into argc, argv, converts env_list to envp,
+**	expands $ and ~, and runs the command.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_handle_command(t_env *env_list, t_command command);
+
+/*
+**	Takes argv after it had been split up by ft_split_command,
+**	and expands any ~ or $.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_handle_expansions(t_env *env_list, char **argv);
+
+/*
+**	Takes a pointer to a string and the env list,
+**	and expands the string correctly if it starts with ~ or $.
+**	on succes, frees the old string and replaces it with the new one.
+**	on failure, nothing is changed.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_expand_variable(t_env *env_list, char **string);
+
+/*
+**	Takes a pointer to a command struct, and frees everything in it.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_free_command(t_command *command);
 
 #endif
