@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/10 17:29:34 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/10 17:54:48 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/22 14:17:02 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,31 @@ char				*ft_ulltoa_base_low(\
 size_t				ft_nbrlenbase_ull(unsigned long long number, int base);
 char				*ft_strcharjoin(char *str, char c);
 void				ft_strcharexpand(char **source, const char addition);
+
+/*
+**	Arguments:
+**	char **pointer_array: array of character pointers, NULL delimited.
+**	Returns:
+**	the amount of character pointers in the array.
+*/
+size_t				ft_str_arr_len(char **pointer_array);
+
+/*
+**	Arguments:
+**	char *string: string to be duplicated (partially).
+**	size_t len: the amount of characters to be copied.
+**	Returns:
+**	a fresh copy of the string up until len.
+*/
+char				*ft_strndup(const char *string, size_t len);
+
+/*
+**	Arguments:
+**	char **array: the array of strings to be freed.
+**	frees every char * in the array, by iterating over it until it finds NULL.
+**	Returns:
+**	the amount of strings that were found and freed.
+*/
+size_t				ft_free_str_array(char **array);
 
 #endif

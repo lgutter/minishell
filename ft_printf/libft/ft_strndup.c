@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strcdup.c                                       :+:    :+:            */
+/*   ft_strndup.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/10 17:47:04 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/21 19:50:31 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/21 19:46:22 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/21 19:47:55 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcdup(const char *string, char delim)
+char	*ft_strndup(const char *string, size_t len)
 {
-	size_t	len;
+	char	*ret;
+	size_t	index;
 
+	index = 0;
 	if (string == NULL)
 	{
 		return (NULL);
 	}
-	len = ft_strlenc(string, delim, ft_strlen(string));
-	return (ft_strndup(string, len));
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (ret != NULL)
+	{
+		while (index < len)
+		{
+			ret[index] = string[index];
+			index++;
+		}
+		ret[index] = '\0';
+	}
+	return (ret);
 }
