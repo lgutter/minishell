@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 10:30:10 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/14 13:00:14 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/20 14:50:04 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ Test(unit_ft_convert_env_to_envp, mandatory_basic_convert_full_list, .init = red
 	cr_assert_str_eq(envp[i], "MINISHELL_TEST_KEY=CONVERT_TEST_VALUE");
 	dprintf(2, "-");
 	fflush(stderr);
+	dprintf(2, "-");
 	cr_assert_stderr_eq_str("-");
 }
 
@@ -99,7 +100,8 @@ Test(unit_ft_convert_env_to_envp, mandatory_error_convert_NULL_list, .init = red
 	t_env *env = NULL;
 
 	envp = ft_convert_env_to_envp(env);
-	cr_assert_eq(envp, NULL);
+	cr_assert_eq(*envp, NULL);
+	dprintf(2, "-");
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: Environment is empty\n");
+	cr_assert_stderr_eq_str("-");
 }
