@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:13:49 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/21 20:52:24 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/27 10:55:56 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		ft_expand_dollar(t_env *env_list, char **string)
 		return (ERR_MALLOCFAIL);
 	ret = ft_getenv(env_list, key);
 	if (ret == NULL)
-		return (ERR_MALLOCFAIL);
+		return (ERR_INVALID_EXPANSION);
 	free(key);
 	free(*string);
 	*string = ret;
