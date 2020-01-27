@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/21 20:48:47 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/27 13:33:47 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ CFLAGS := -Wall -Wextra -Werror -g
 
 JUNK += $(OBJS:%.o= %.gcda)
 ifdef CV
+	JUNK += $(OBJS:%.o= %.gcno)
+	JUNK += $(OBJS:srcs/%.o= %.c.gcov)
 	CFLAGS += -coverage
 endif
 
