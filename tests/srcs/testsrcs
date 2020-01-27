@@ -6,3 +6,8 @@ ft_unsetenv_tests\
 ft_convert_env_to_envp_tests\
 ft_getstatus_tests\
 ft_setstatus_tests\
+ft_free_command_tests\
+ft_expand_variable_tests\
+ft_handle_expansions_tests\
+ft_handle_command_tests\
+ft_split_command_tests\
