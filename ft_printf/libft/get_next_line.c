@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/14 14:37:52 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/08 10:36:37 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/15 18:46:32 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int		finalize(int fd, t_cache **start, char **line, size_t size)
 	}
 	size = ft_strlenc(*line, '\n', size);
 	ft_memexpand((void **)line, &size, "\0", 1);
-	return (1);
+	return (size);
 }
 
 int				get_next_line(const int fd, char **line)

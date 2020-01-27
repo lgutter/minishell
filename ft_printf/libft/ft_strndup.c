@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_getstatus.c                                     :+:    :+:            */
+/*   ft_strndup.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/15 11:51:16 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/27 10:14:40 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/21 19:46:22 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/21 19:47:55 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		ft_getstatus(t_env *env)
+char	*ft_strndup(const char *string, size_t len)
 {
-	char	*str_status_code;
-	int		int_status_code;
+	char	*ret;
+	size_t	index;
 
-	str_status_code = ft_getenv(env, STATUS_CODE_KEY);
-	if (str_status_code == NULL)
-		return (ERR_ENVNOTFOUND);
-	int_status_code = ft_atoi(str_status_code);
-	return (int_status_code);
+	index = 0;
+	if (string == NULL)
+	{
+		return (NULL);
+	}
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (ret != NULL)
+	{
+		while (index < len)
+		{
+			ret[index] = string[index];
+			index++;
+		}
+		ret[index] = '\0';
+	}
+	return (ret);
 }

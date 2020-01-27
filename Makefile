@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/13 19:54:37 by lgutter       ########   odam.nl          #
+#    Updated: 2020/01/21 20:48:47 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MINUS = \033[38;5;160m| - |\033[0;00m
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) $(MAIN) $(HEADER)
-	@gcc $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) -o $@
+	@gcc $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) $(INCLPATH) -o $@
 	@echo "$(PLUS) compiled: $@"
 
 $(LIBFT): FORCE

@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 10:29:17 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/14 12:55:26 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/20 14:50:05 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ char			**ft_convert_env_to_envp(t_env *list_start)
 	char	**envp;
 	size_t	count;
 
-	if (list_start == NULL)
-	{
-		ft_print_error(ERR_EMPTYENV);
-		return (NULL);
-	}
 	count = get_env_size(list_start);
 	envp = (char **)malloc(sizeof(char *) * (count + 1));
 	if (envp == NULL)

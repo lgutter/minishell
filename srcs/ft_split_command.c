@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_getstatus.c                                     :+:    :+:            */
+/*   ft_split_command.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/15 11:51:16 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/27 10:14:40 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/15 19:29:22 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/21 11:57:56 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_getstatus(t_env *env)
+int			ft_split_command(t_env *env_list, t_command *command)
 {
-	char	*str_status_code;
-	int		int_status_code;
-
-	str_status_code = ft_getenv(env, STATUS_CODE_KEY);
-	if (str_status_code == NULL)
-		return (ERR_ENVNOTFOUND);
-	int_status_code = ft_atoi(str_status_code);
-	return (int_status_code);
+	command->envp = ft_convert_env_to_envp(env_list);
+	if (command->envp == NULL)
+		return (ft_print_error(ERR_MALLOCFAIL));
+	command->argv = ft_strsplit(command->input, ' ');
+	if (command->argv == NULL)
+		return (ft_print_error(ERR_MALLOCFAIL));
+	command->argc = (int)ft_str_arr_len(command->argv);
+	return (0);
 }

@@ -6,8 +6,10 @@ ft_memmove \
 ft_memchr \
 ft_memcmp \
 ft_strlen \
+ft_str_arr_len \
 ft_strdup \
 ft_strcdup \
+ft_strndup \
 ft_strcpy \
 ft_strncpy \
 ft_strcat \
@@ -71,5 +73,6 @@ ft_nbrlenbase \
 ft_lstlen \
 ft_lstaddback \
 ft_lstaddnext \
-get_next_line
+get_next_line\
+ft_free_str_array
 

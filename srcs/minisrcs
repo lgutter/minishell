@@ -6,3 +6,8 @@ ft_unsetenv\
 ft_convert_env_to_envp\
 ft_getstatus\
 ft_setstatus\
+ft_handle_command\
+ft_split_command\
+ft_handle_expansions\
+ft_expand_variable\
+ft_free_command

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_getstatus.c                                     :+:    :+:            */
+/*   ft_free_command.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/15 11:51:16 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/27 10:14:40 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/22 15:27:40 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_getstatus(t_env *env)
+int			ft_free_command(t_command *command)
 {
-	char	*str_status_code;
-	int		int_status_code;
+	size_t	index;
 
-	str_status_code = ft_getenv(env, STATUS_CODE_KEY);
-	if (str_status_code == NULL)
-		return (ERR_ENVNOTFOUND);
-	int_status_code = ft_atoi(str_status_code);
-	return (int_status_code);
+	index = 0;
+	free(command->input);
+	command->input = NULL;
+	ft_free_str_array(command->argv);
+	free(command->argv);
+	command->argv = NULL;
+	ft_free_str_array(command->envp);
+	free(command->envp);
+	command->envp = NULL;
+	command->argc = 0;
+	return (0);
 }
