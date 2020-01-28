@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/22 14:11:30 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/28 16:56:17 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 **	this is used to determine the length of the array holding the errors,
 **	and to check if an error code is valid.
 */
-# define ERR_COUNT 7
+# define ERR_COUNT 10
 
 /*
 **	list of defines for errid.
@@ -48,7 +48,10 @@
 # define ERR_ENVNOWRITE 3
 # define ERR_ENVNOTFOUND 4
 # define ERR_EMPTYENV 5
-# define ERR_INVALID_EXPANSION 6
+# define ERR_INVALID_EXP 6
+# define ERR_EXECVE_FAILED 7
+# define ERR_FORK_FAILED 8
+# define ERR_CMD_NOT_FOUND 9
 
 /*
 **	typedef for our error tracking variable errid.
