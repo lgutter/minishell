@@ -6,11 +6,13 @@ env:
     global:
         - CODECOV_TOKEN="fb5641ce-5938-4a57-8265-5c08a1a0d4f7"
         - HOMEBREW_NO_AUTO_UPDATE=1
+        - HOMEBREW_NO_INSTALL_CLEANUP=1
 branches:
     only:
         - master
 install:
     - brew install snaipe/soft/criterion
+    - sudo touch /tmp/printf
 before_script:
     - make test CV=1
     - env
