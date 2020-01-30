@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_command.c                                  :+:    :+:            */
+/*   ft_is_builtin.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 14:38:12 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/30 12:46:00 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/30 15:09:08 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_free_command(t_command *command)
+int		ft_is_builtin(char *command)
 {
-	size_t	index;
-
-	index = 0;
-	free(command->input);
-	command->input = NULL;
-	ft_free_str_array(command->argv);
-	free(command->argv);
-	command->argv = NULL;
-	ft_free_str_array(command->envp);
-	free(command->path);
-	command->path = NULL;
-	free(command->envp);
-	command->envp = NULL;
-	command->argc = 0;
-	return (0);
+	if (ft_strcmp("echo", command) == 0)
+		return (0);
+	if (ft_strcmp("cd", command) == 0)
+		return (0);
+	if (ft_strcmp("setenv", command) == 0)
+		return (0);
+	if (ft_strcmp("unsetenv", command) == 0)
+		return (0);
+	if (ft_strcmp("env", command) == 0)
+		return (0);
+	if (ft_strcmp("exit", command) == 0)
+		return (0);
+	return (-1);
 }

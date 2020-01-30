@@ -11,3 +11,5 @@ ft_expand_variable_tests\
 ft_handle_expansions_tests\
 ft_handle_command_tests\
 ft_split_command_tests\
+ft_find_executable_tests\
+ft_is_builtin_tests\

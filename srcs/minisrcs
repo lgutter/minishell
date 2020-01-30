@@ -10,4 +10,6 @@ ft_handle_command\
 ft_split_command\
 ft_handle_expansions\
 ft_expand_variable\
-ft_free_command
+ft_free_command\
+ft_is_builtin\
+ft_find_executable\

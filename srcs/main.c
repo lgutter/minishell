@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:07 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/22 14:35:36 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/30 15:38:54 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ int		main(void)
 	while (1)
 	{
 		ft_printf(SHELL_PROMPT);
+		command.input = NULL;
 		if (get_next_line(0, &(command.input)) == 0)
 		{
 			ret = ft_getstatus(env_start);
-			if (ret == 0)
-				ret = -1;
-			return (ret);
+			return (ret == 0 ? -1 : ret);
 		}
-		ret = ft_handle_command(env_start, command);
+		if (command.input[0] != '\0')
+			ret = ft_handle_command(env_start, command);
+		else
+			free(command.input);
 	}
 	return (0);
 }

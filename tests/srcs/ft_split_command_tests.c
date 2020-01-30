@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/27 11:29:09 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/30 14:46:29 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ Test(unit_ft_split_command, basic_mandatory_split_simple_command)
 	cr_assert_str_eq(command.argv[3], "arg3");
 	cr_assert_str_eq(command.envp[0], "TESTENVKEY=TESTENVVALUE");
 	cr_assert_eq(command.envp[1], NULL);
+	cr_assert_eq(command.path, NULL);
 }
