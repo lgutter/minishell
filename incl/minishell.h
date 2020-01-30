@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/28 16:56:17 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/30 14:26:17 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef unsigned char	t_errid;
 **	input:		the complete input as given by get_next_line.
 **	argc:		amount of arguments for command.
 **	argv:		list of arguments for command, extracted from input.
+**	path:	absolute path of executable from PATH. empty if builtin.
 **	envp:		the environmennt for the command.
 */
 typedef struct			s_command
@@ -72,6 +73,7 @@ typedef struct			s_command
 	char			*input;
 	int				argc;
 	char			**argv;
+	char			*path;
 	char			**envp;
 }						t_command;
 
@@ -171,6 +173,18 @@ int						ft_split_command(t_env *env_list, t_command *command);
 int						ft_handle_command(t_env *env_list, t_command command);
 
 /*
+**	Takes a command (argv[0]) and checks if it is a builtin,
+**	or if it can be found in PATH.
+**	If it's a builtin, sets command.path to an empty string.
+**	If it finds an executable, sets command.path to the absolute path.
+**	if it can not be found, sets command.path to NULL.
+**	Returns:
+**	0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_find_executable(t_env *env_list, t_command *command);
+
+/*
 **	Takes argv after it had been split up by ft_split_command,
 **	and expands any ~ or $.
 **	Returns:
@@ -197,5 +211,13 @@ int						ft_expand_variable(t_env *env_list, char **string);
 **	- errid error code on failure.
 */
 int						ft_free_command(t_command *command);
+
+/*
+**	Takes the name of a command(argv[0]) and checks if it is a builtin.
+**	Returns:
+**	0 on succes. (IS builtin)
+**	-1 on failure. (is NOT builtin)
+*/
+int						ft_is_builtin(char *command);
 
 #endif
