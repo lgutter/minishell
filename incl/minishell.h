@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 14:26:17 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 13:53:35 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,14 @@ int						ft_expand_variable(t_env *env_list, char **string);
 **	- errid error code on failure.
 */
 int						ft_free_command(t_command *command);
+
+/*
+**	Takes a pointer to an environment list, and frees everything in it.
+**	Returns:
+**	- 0 on succes.
+**	- errid error code on failure.
+*/
+int						ft_free_env_list(t_env *env_list);
 
 /*
 **	Takes the name of a command(argv[0]) and checks if it is a builtin.
