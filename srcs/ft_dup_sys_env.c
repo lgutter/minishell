@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:35:25 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 17:43:29 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 14:43:35 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 {
 	t_env		*new;
 
+	if (env_variable == NULL)
+	{
+		*errid = ERR_EMPTYENV;
+		return (NULL);
+	}
 	new = (t_env *)ft_memalloc(sizeof(t_env) * 1);
 	if (new == NULL)
 		*errid = ERR_MALLOCFAIL;
@@ -42,15 +47,11 @@ t_env			*ft_dup_sys_env(t_errid *errid)
 	t_env		*current;
 
 	index = 0;
-	current = NULL;
-	if (environ[index] != NULL)
-	{
-		current = ft_new_env_list_item(errid, environ[index]);
-		if (current == NULL)
-			return (NULL);
-		index++;
-	}
+	current = ft_new_env_list_item(errid, environ[index]);
+	if (environ == NULL || current == NULL)
+		return (NULL);
 	start = current;
+	index++;
 	while (environ[index] != NULL)
 	{
 		current->next = ft_new_env_list_item(errid, environ[index]);

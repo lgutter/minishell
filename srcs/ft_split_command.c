@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 19:29:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 15:53:06 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 16:47:41 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,29 @@
 
 int			ft_split_command(t_env *env_list, t_command *command)
 {
-	command->argv = NULL;
-	command->path = NULL;
-	command->envp = NULL;
-	command->envp = ft_convert_env_to_envp(env_list);
-	if (command->envp == NULL)
-		return (ft_print_error(ERR_MALLOCFAIL));
-	command->argv = ft_strsplit(command->input, ' ');
-	if (command->argv == NULL)
-		return (ft_print_error(ERR_MALLOCFAIL));
-	command->argc = (int)ft_str_arr_len(command->argv);
-	return (0);
+	char	*temp;
+	int		ret;
+
+	ret = 0;
+	temp = ft_strtrim(command->input);
+	if (temp[0] != '\0')
+	{
+		command->argv = ft_strsplit(temp, ' ');
+		if (command->argv != NULL)
+		{
+			command->envp = ft_convert_env_to_envp(env_list);
+			if (command->envp != NULL)
+				command->argc = (int)ft_str_arr_len(command->argv);
+			else
+				ret = ERR_MALLOCFAIL;
+		}
+		else
+			ret = ERR_MALLOCFAIL;
+	}
+	else
+		ret = ERR_CMD_NOT_FOUND;
+	free(temp);
+	if (ret != 0)
+		free(command->input);
+	return (ret);
 }

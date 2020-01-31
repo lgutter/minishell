@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 14:38:12 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 15:26:27 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ int			ft_free_command(t_command *command)
 	free(command->input);
 	command->input = NULL;
 	ft_free_str_array(command->argv);
-	free(command->argv);
 	command->argv = NULL;
 	ft_free_str_array(command->envp);
+	command->envp = NULL;
 	free(command->path);
 	command->path = NULL;
-	free(command->envp);
-	command->envp = NULL;
 	command->argc = 0;
 	return (0);
 }

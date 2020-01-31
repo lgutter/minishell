@@ -6,11 +6,12 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 19:19:30 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 15:51:22 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 15:04:39 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 static int	execute_command(t_env *env_list, t_command *command)
 {
@@ -38,29 +39,45 @@ static int	execute_command(t_env *env_list, t_command *command)
 	return (ret);
 }
 
+static int	execute_builtin(t_env *env_list, t_command *command)
+{
+	int	ret;
+
+	ret = -1;
+	if (ft_strcmp(command->argv[0], "cd") == 0)
+		ret = ft_cd_builtin(env_list, command);
+	else if (ft_strcmp(command->argv[0], "echo") == 0)
+		ret = ft_echo_builtin(env_list, command);
+	else if (ft_strcmp(command->argv[0], "exit") == 0)
+		ret = ft_exit_builtin(env_list, command);
+	else if (ft_strcmp(command->argv[0], "env") == 0)
+		ret = ft_env_builtin(env_list, command);
+	else if (ft_strcmp(command->argv[0], "setenv") == 0)
+		ret = ft_setenv_builtin(env_list, command);
+	else if (ft_strcmp(command->argv[0], "unsetenv") == 0)
+		ret = ft_unsetenv_builtin(env_list, command);
+	return (ret);
+}
+
 int			ft_handle_command(t_env *env_list, t_command command)
 {
 	int ret;
 
-	ret = ft_split_command(env_list, &command);
+	ret = ft_handle_expansions(env_list, command.argv);
 	if (ret == 0)
 	{
-		ret = ft_handle_expansions(env_list, command.argv);
+		ret = ft_find_executable(env_list, &command);
 		if (ret == 0)
 		{
-			ret = ft_find_executable(env_list, &command);
-			if (ret == 0)
-			{
-				if (command.path[0] != '\0')
-					ret = execute_command(env_list, &command);
-				else
-					ft_printf("detected builtin: %s\n", command.argv[0]);
-			}
+			if (command.path[0] != '\0')
+				ret = execute_command(env_list, &command);
 			else
-			{
-				ft_dprintf(2, "-ish: %s: command not found\n", command.argv[0]);
-				ret = ERR_CMD_NOT_FOUND;
-			}
+				ret = execute_builtin(env_list, &command);
+		}
+		else
+		{
+			ft_dprintf(2, "-ish: %s: command not found\n", command.argv[0]);
+			ret = ERR_CMD_NOT_FOUND;
 		}
 	}
 	ft_free_command(&command);
