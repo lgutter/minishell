@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 17:00:36 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 17:13:49 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 22:20:10 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ Test(unit_ft_getenv, mandatory_basic_get_from_empty_list, .init = redirect_std_e
 	t_env *list = NULL;
 
 	value = ft_getenv(list, "MINISHELL_TEST_GET_ENV");
+	cr_assert_eq(NULL, value);
+	ft_dprintf(2, "-");
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: Environment key not found\n");
+	cr_assert_stderr_eq_str("-");
 }
 
 Test(unit_ft_getenv, mandatory_basic_get_valid_value_from_system_list, .init = redirect_std_err)

@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 12:20:03 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/27 10:56:46 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 22:18:38 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ Test(unit_ft_getstatus, mandatory_basic_get_status_from_empty_list, .init = redi
 	t_env *list = NULL;
 
 	value = ft_getstatus(list);
-	fflush(stderr);
 	cr_assert_eq(value, ERR_ENVNOTFOUND);
-	cr_assert_stderr_eq_str("-ish: Environment key not found\n");
+	ft_dprintf(2, "-");
+	fflush(stderr);
+	cr_assert_stderr_eq_str("-");
 }
 
 Test(unit_ft_getstatus, mandatory_basic_get_status_from_system_list, .init = redirect_std_err)
