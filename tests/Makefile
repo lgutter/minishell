@@ -6,7 +6,7 @@
 #    By: lgutter <lgutter@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/09/11 13:40:17 by lgutter        #+#    #+#                 #
-#    Updated: 2020/01/13 13:55:44 by lgutter       ########   odam.nl          #
+#    Updated: 2020/02/04 13:00:35 by lgutter       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,14 @@ MINUS = \033[38;5;160m| - |\033[0;00m
 all: $(NAME)
 
 $(NAME): $(MINI) $(OBJECTS) $(MINIOBJS)
-	@$(CC) -coverage $(CRITERION) $(LIB) $(OBJECTS) $(CFLAGS) -o $@
+	@gcc -coverage $(CRITERION) $(OBJECTS) $(CFLAGS) $(LIB) $(INCLPATH) -o $@
 	@echo "$(PLUS) compiled: $(NAME)"
 
 $(MINI): FORCE
 	@$(MAKE) -C ../
 
 %.o: %.c
-	@$(CC) -c $< $(CFLAGS) $(INCLPATH) -o $@
+	@gcc -c $< $(CFLAGS) $(INCLPATH) -o $@
 	@echo "$(PLUS) compiled: $@"
 
 clean:
