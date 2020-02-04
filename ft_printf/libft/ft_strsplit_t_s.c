@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/21 18:29:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 20:10:03 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 21:17:40 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,11 @@ static char		*ft_writeword_t_s(char const *string, size_t index)
 	len = index;
 	while (ft_is_tab_space(string[len]) == 0 && string[len] != '\0')
 		len++;
-	ret = (char *)malloc(sizeof(char) * ((len - index) + 1));
-	if (!ret)
+	ret = (char *)ft_memalloc(sizeof(char) * len + 1);
+	if (ret == NULL)
 		return (NULL);
-	ret[len - index] = '\0';
 	len = 0;
-	while (ft_is_tab_space(string[len]) == 0 && string[index] != '\0')
+	while (ft_is_tab_space(string[index]) == 0 && string[index] != '\0')
 	{
 		ret[len] = string[index];
 		index++;
@@ -79,8 +78,8 @@ char			**ft_strsplit_t_s(char const *string)
 	index = 0;
 	wordcount = ft_wordcount_t_s(string);
 	wordindex = 0;
-	ret = (char **)malloc(sizeof(char *) * (wordcount + 1));
-	if (!ret)
+	ret = (char **)ft_memalloc(sizeof(char *) * (wordcount + 1));
+	if (ret == NULL)
 		return (NULL);
 	ret[wordcount] = NULL;
 	while (string[index] != '\0' && wordindex < wordcount)
