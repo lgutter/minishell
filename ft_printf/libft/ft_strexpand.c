@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/09/13 16:04:59 by lgutter        #+#    #+#                */
-/*   Updated: 2019/09/27 13:37:00 by ivan-tey      ########   odam.nl         */
+/*   Updated: 2020/02/04 15:23:17 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_strexpand(char **source, const char *addition)
 	{
 		*source = ft_strdup(addition);
 	}
-	else
+	else if (addition != NULL)
 	{
 		*source = ft_strjoin(*source, addition);
 		free(temp);

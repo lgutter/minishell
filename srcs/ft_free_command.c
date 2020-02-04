@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:26:27 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 13:59:32 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int			ft_free_command(t_command *command)
 {
-	size_t	index;
-
-	index = 0;
 	free(command->input);
 	command->input = NULL;
 	ft_free_str_array(command->argv);
