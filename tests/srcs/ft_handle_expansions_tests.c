@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 15:33:58 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 16:08:13 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 22:19:22 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ Test(unit_ft_handle_expansions, basic_error_expand_invalid_env_key, .init = redi
 	int ret;
 
 	ret = ft_handle_expansions(env, argv);
+	ft_dprintf(2, "-");
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: Environment key not found\n");
+	cr_assert_stderr_eq_str("-");
 	cr_assert_eq(ret, 0);
 }
