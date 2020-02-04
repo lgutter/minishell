@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:07 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 16:50:08 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 17:47:41 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static int	input_loop(t_env *env_start)
 		if (get_next_line(0, &(command.input)) == 0)
 		{
 			ret = ft_getstatus(env_start);
-			return (ret == 0 ? -1 : ret);
+			ft_free_env_list(env_start);
+			free(command.input);
+			return (ret);
 		}
 		if (command.input[0] != '\0')
 		{
