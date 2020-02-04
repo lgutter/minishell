@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:00:42 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 14:46:02 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 19:08:31 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_handle_expansions(t_env *env_list, char **argv)
 	int		final_ret;
 	char	*var_start;
 
-	index = 1;
+	index = 0;
 	final_ret = 0;
 	while (argv[index] != NULL)
 	{

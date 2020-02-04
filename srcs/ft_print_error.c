@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:31:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/28 16:56:45 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 19:09:53 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static const char	*errid_to_str(t_errid errid)
 		[ERR_ENVNOTFOUND]	= "Environment key not found",
 		[ERR_EMPTYENV]		= "Environment is empty",
 		[ERR_INVALID_EXP]	= "Invalid expansion",
-		[ERR_EXECVE_FAILED]	= "Failure in execve",
+		[ERR_EXECVE_FAILED]	= "Unable to execute",
 		[ERR_FORK_FAILED]	= "Failure in fork",
 		[ERR_CMD_NOT_FOUND]	= "Command not found",
 	};

@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 19:29:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 16:47:41 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 21:19:28 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_split_command(t_env *env_list, t_command *command)
 	temp = ft_strtrim(command->input);
 	if (temp[0] != '\0')
 	{
-		command->argv = ft_strsplit(temp, ' ');
+		command->argv = ft_strsplit_t_s(temp);
 		if (command->argv != NULL)
 		{
 			command->envp = ft_convert_env_to_envp(env_list);

@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/10 17:29:34 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 14:03:52 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 19:18:57 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char				*ft_strsub(char const *string, unsigned int start,
 char				*ft_strjoin(char const *string1, char const *string2);
 char				*ft_strtrim(char const *str);
 char				**ft_strsplit(char const *string, char delim);
+char				**ft_strsplit_t_s(char const *string);
 char				*ft_itoa(int integer);
 void				ft_putchar(char character);
 void				ft_putstr(char const *string);
