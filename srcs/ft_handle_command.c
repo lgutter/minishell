@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 19:19:30 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:04:39 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 17:57:45 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	execute_builtin(t_env *env_list, t_command *command)
 	else if (ft_strcmp(command->argv[0], "echo") == 0)
 		ret = ft_echo_builtin(env_list, command);
 	else if (ft_strcmp(command->argv[0], "exit") == 0)
-		ret = ft_exit_builtin(env_list, command);
+		ft_exit_builtin(env_list, command);
 	else if (ft_strcmp(command->argv[0], "env") == 0)
 		ret = ft_env_builtin(env_list, command);
 	else if (ft_strcmp(command->argv[0], "setenv") == 0)
