@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/10 17:35:25 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 14:43:35 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 22:25:25 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 {
 	t_env		*new;
 
-	if (env_variable == NULL)
-	{
-		*errid = ERR_EMPTYENV;
-		return (NULL);
-	}
 	new = (t_env *)ft_memalloc(sizeof(t_env) * 1);
 	if (new == NULL)
 		*errid = ERR_MALLOCFAIL;
@@ -31,6 +26,8 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 	env_variable[ft_strlenc(env_variable, '=', ft_strlen(env_variable)) + 1]));
 		if (new->key == NULL || new->value == NULL)
 		{
+			free(new->key);
+			free(new->value);
 			*errid = ERR_MALLOCFAIL;
 			return (NULL);
 		}
@@ -38,6 +35,29 @@ static t_env	*ft_new_env_list_item(t_errid *errid, char *env_variable)
 	new->next = NULL;
 	return (new);
 }
+static t_env	*empty_env_init(t_errid *errid)
+{
+	t_env	*new;
+
+	new = (t_env *)ft_memalloc(sizeof(t_env) * 1);
+	if (new == NULL)
+		*errid = ERR_MALLOCFAIL;
+	else
+	{
+		new->key = ft_strdup("PWD");
+		new->value = getcwd(NULL, 0);
+		if (new->key == NULL || new->value == NULL)
+		{
+			free(new->key);
+			free(new->value);
+			*errid = ERR_MALLOCFAIL;
+			return (NULL);
+		}
+	}
+	new->next = NULL;
+	return (new);
+}
+
 
 t_env			*ft_dup_sys_env(t_errid *errid)
 {
@@ -47,8 +67,10 @@ t_env			*ft_dup_sys_env(t_errid *errid)
 	t_env		*current;
 
 	index = 0;
+	if (environ == NULL || environ[0] == NULL)
+		return (empty_env_init(errid));
 	current = ft_new_env_list_item(errid, environ[index]);
-	if (environ == NULL || current == NULL)
+	if (current == NULL)
 		return (NULL);
 	start = current;
 	index++;
