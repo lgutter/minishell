@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_command.c                                  :+:    :+:            */
+/*   ft_env_builtin.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:26:27 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/31 11:53:42 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/31 15:05:22 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-int			ft_free_command(t_command *command)
+int			ft_env_builtin(t_env *env_list, t_command *command)
 {
-	size_t	index;
+	int ret;
 
-	index = 0;
-	free(command->input);
-	command->input = NULL;
-	ft_free_str_array(command->argv);
-	command->argv = NULL;
-	ft_free_str_array(command->envp);
-	command->envp = NULL;
-	free(command->path);
-	command->path = NULL;
-	command->argc = 0;
-	return (0);
+	ret = ft_print_str_array(command->envp);
+	if (ret == -1)
+		ret = 1;
+	ft_setstatus(env_list, ret);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 15:57:38 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 13:47:02 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ Test(unit_ft_handle_command, basic_mandatory_handle_simple_command, .init = redi
 	env->next = NULL;
 
 	command.input = strdup("/bin/echo arg1 arg2 arg3");
+	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
@@ -58,6 +59,7 @@ Test(unit_ft_handle_command, basic_mandatory_handle_dollar_expansion_in_arg, .in
 
 
 	command.input = strdup("printf %s\n $TESTENVKEY arg2");
+	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
@@ -76,6 +78,7 @@ Test(unit_ft_handle_command, basic_mandatory_handle_home_expansion_in_arg, .init
 	env->next = NULL;
 
 	command.input = strdup("/bin/echo arg ~");
+	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
@@ -87,14 +90,20 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_not_found, .init = re
 	t_command	command;
 	int			ret;
 	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+	t_env		*env_path = (t_env *)malloc(sizeof(t_env) * 1);
 
 	env->key = strdup("HOME");
 	env->value = strdup("/Users/lgutter");
+	env->next = env_path;
+	env->key = strdup("PATH");
+	env->value = strdup("/usr/bin");
 	env->next = NULL;
 
-	command.input = strdup("test arg1 arg2");
+	command.input = strdup("foobartest arg1 arg2");
+	command.path = NULL;
+	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: Environment key not found\n-ish: test: command not found\n");
+	cr_assert_stderr_eq_str("-ish: foobartest: command not found\n");
 	cr_assert_eq(ret, ERR_CMD_NOT_FOUND);
 }

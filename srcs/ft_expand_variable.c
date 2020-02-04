@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:13:49 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/28 16:56:17 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 16:51:16 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ static int		ft_expand_dollar(t_env *env_list, char **string)
 	ret = ft_getenv(env_list, key);
 	if (ret == NULL)
 	{
+		free(key);
 		return (ERR_INVALID_EXP);
 	}
 	free(key);
 	free(*string);
-	*string = ret;
+	*string = ft_strdup(ret);
 	return (0);
 }
 

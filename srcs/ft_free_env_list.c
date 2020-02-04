@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_command.c                                  :+:    :+:            */
+/*   ft_free_env_list.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:26:27 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/31 14:01:30 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/31 14:03:31 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_free_command(t_command *command)
+int		ft_free_env_list(t_env *env_list)
 {
-	size_t	index;
+	t_env *current;
+	t_env * previous;
 
-	index = 0;
-	free(command->input);
-	command->input = NULL;
-	ft_free_str_array(command->argv);
-	command->argv = NULL;
-	ft_free_str_array(command->envp);
-	command->envp = NULL;
-	free(command->path);
-	command->path = NULL;
-	command->argc = 0;
+	current = env_list;
+	while (current != NULL)
+	{
+		previous = current;
+		current = current->next;
+		free(previous);
+		previous = NULL;
+	}
 	return (0);
 }

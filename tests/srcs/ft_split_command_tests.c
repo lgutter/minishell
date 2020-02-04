@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 14:46:29 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 13:04:48 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Test(unit_ft_split_command, basic_mandatory_split_simple_command)
 	env->next = NULL;
 
 	command.input = strdup("test arg1 arg2 arg3");
+	command.path = NULL;
 	ret = ft_split_command(env, &command);
 	cr_assert_eq(ret, 0);
 	cr_assert_eq(command.argc, 4);

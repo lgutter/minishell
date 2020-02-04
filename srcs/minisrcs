@@ -13,3 +13,10 @@ ft_expand_variable\
 ft_free_command\
 ft_is_builtin\
 ft_find_executable\
+ft_cd_builtin\
+ft_echo_builtin\
+ft_env_builtin\
+ft_exit_builtin\
+ft_setenv_builtin\
+ft_unsetenv_builtin\
+ft_free_env_list

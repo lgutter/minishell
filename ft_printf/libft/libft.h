@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/10 17:29:34 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/22 14:17:02 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 14:03:52 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <unistd.h>
 # include "get_next_line.h"
+# include "ft_printf.h"
 
 typedef struct		s_list
 {
@@ -148,5 +149,15 @@ char				*ft_strndup(const char *string, size_t len);
 **	the amount of strings that were found and freed.
 */
 size_t				ft_free_str_array(char **array);
+
+/*
+**	Arguments:
+**	char **array: the array of strings to be printed.
+**	prints every string in the array, followed by a newline.
+**	Returns:
+**	0 on succes.
+**	-1 on failure.
+*/
+int					ft_print_str_array(char **array);
 
 #endif

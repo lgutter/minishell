@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_command.c                                  :+:    :+:            */
+/*   ft_print_str_array.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/22 14:10:47 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:26:27 by lgutter       ########   odam.nl         */
+/*   Created: 2020/01/31 10:51:17 by lgutter        #+#    #+#                */
+/*   Updated: 2020/01/31 10:53:46 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int			ft_free_command(t_command *command)
+int		ft_print_str_array(char **array)
 {
-	size_t	index;
+	size_t index;
 
 	index = 0;
-	free(command->input);
-	command->input = NULL;
-	ft_free_str_array(command->argv);
-	command->argv = NULL;
-	ft_free_str_array(command->envp);
-	command->envp = NULL;
-	free(command->path);
-	command->path = NULL;
-	command->argc = 0;
+	if (array == NULL || array[0] == NULL)
+		return (-1);
+	while (array[index] != NULL)
+	{
+		ft_printf("%s\n", array[index]);
+		index++;
+	}
 	return (0);
 }

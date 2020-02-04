@@ -6,15 +6,41 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:07 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/30 15:38:54 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/01/31 16:50:08 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(void)
+static int	input_loop(t_env *env_start)
 {
 	t_command	command;
+	int			ret;
+
+	while (1)
+	{
+		ft_printf(SHELL_PROMPT);
+		command.input = NULL;
+		command.path = NULL;
+		if (get_next_line(0, &(command.input)) == 0)
+		{
+			ret = ft_getstatus(env_start);
+			return (ret == 0 ? -1 : ret);
+		}
+		if (command.input[0] != '\0')
+		{
+			ret = ft_split_command(env_start, &command);
+			if (ret == 0)
+				ret = ft_handle_command(env_start, command);
+		}
+		else
+			free(command.input);
+	}
+	return (ret);
+}
+
+int		main(void)
+{
 	t_errid		errid;
 	t_env		*env_start;
 	int			ret;
@@ -25,19 +51,5 @@ int		main(void)
 	ret = ft_setstatus(env_start, 0);
 	if (ret != 0)
 		return (ret);
-	while (1)
-	{
-		ft_printf(SHELL_PROMPT);
-		command.input = NULL;
-		if (get_next_line(0, &(command.input)) == 0)
-		{
-			ret = ft_getstatus(env_start);
-			return (ret == 0 ? -1 : ret);
-		}
-		if (command.input[0] != '\0')
-			ret = ft_handle_command(env_start, command);
-		else
-			free(command.input);
-	}
-	return (0);
+	return (input_loop(env_start));
 }
