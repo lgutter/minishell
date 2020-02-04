@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/14 14:37:52 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/15 18:46:32 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 18:17:35 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		list_add_new(int fd, t_cache **start, char *buf,
 {
 	t_cache *new;
 
-	if (buf == NULL || (ssize_t)ft_strlenc(buf, '\n', i) >= i)
+	if (buf == NULL || (ssize_t)ft_strlenc(buf, '\n', i) >= (i - 1))
 		return (0);
 	new = (t_cache *)malloc(sizeof(t_cache) * 1);
 	if (new == NULL)
