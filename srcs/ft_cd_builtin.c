@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:08:52 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 21:54:28 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 22:04:47 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int		ft_cd_builtin(t_env *env_list, t_command *command)
 	path = find_path(env_list, command);
 	if (path == NULL)
 		return (ERR_ENVNOTFOUND);
-	old_path = NULL;
-	old_path = getcwd(old_path, 0);
+	old_path = getcwd(NULL, 0);
 	ret = chdir(path);
 	if (ret != 0)
 	{
@@ -60,8 +59,7 @@ int		ft_cd_builtin(t_env *env_list, t_command *command)
 	else
 	{
 		ft_setenv(env_list, "OLDPWD", old_path, 'y');
-		path = NULL;
-		path = getcwd(path, 0);
+		path = getcwd(NULL, 0);
 		ft_setenv(env_list, "PWD", path, 'y');
 		free(path);
 	}
