@@ -6,13 +6,13 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:35:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 10:41:57 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 17:55:53 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int		ft_exit_builtin(t_env *env_list, t_command *command)
+void	ft_exit_builtin(t_env *env_list, t_command *command)
 {
 	int		exit_code;
 	char	*env_status;

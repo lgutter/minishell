@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:00:17 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 14:49:39 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 17:55:41 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_echo_builtin(t_env *env_list, t_command *command);
 **	and print "exit" right before doing so.
 **	It will use the most recent status code as exit code.
 */
-int		ft_exit_builtin(t_env *env_list, t_command *command);
+void	ft_exit_builtin(t_env *env_list, t_command *command);
 
 /*
 **	The builtin command setenv will attempt to set the key-value pair
