@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 15:49:17 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 16:58:05 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 21:37:31 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ char	*ft_getenv(t_env *env, const char *key)
 		}
 		current = current->next;
 	}
-	ft_print_error(ERR_ENVNOTFOUND);
 	return (NULL);
 }

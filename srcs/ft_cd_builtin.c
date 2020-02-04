@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:08:52 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:35:08 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/04 21:54:28 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ static char	*find_path(t_env *env_list, t_command *command)
 
 	path = NULL;
 	if (command->argc < 2)
+	{
 		path = ft_getenv(env_list, "HOME");
+		if (path == NULL)
+			ft_dprintf(2, "cd: HOME not set\n");
+	}
 	else if (command->argc == 2)
 	{
 		if (command->argv[1][0] == '-' && command->argv[1][1] == '\0')
 		{
 			path = ft_getenv(env_list, "OLDPWD");
 			if (path == NULL)
-				path = ft_getenv(env_list, "HOME");
+				ft_dprintf(2, "cd: OLDPWD not set\n");
+			else
+				ft_printf("%s\n", path);
 		}
 		else
 			path = command->argv[1];
@@ -36,12 +42,15 @@ static char	*find_path(t_env *env_list, t_command *command)
 int		ft_cd_builtin(t_env *env_list, t_command *command)
 {
 	char	*path;
+	char	*old_path;
 	int		ret;
 
 	ret = 0;
 	path = find_path(env_list, command);
 	if (path == NULL)
-		return (ft_print_error(ERR_MALLOCFAIL));
+		return (ERR_ENVNOTFOUND);
+	old_path = NULL;
+	old_path = getcwd(old_path, 0);
 	ret = chdir(path);
 	if (ret != 0)
 	{
@@ -50,12 +59,12 @@ int		ft_cd_builtin(t_env *env_list, t_command *command)
 	}
 	else
 	{
-		ft_printf("%s\n", path);
-		ft_setenv(env_list, "OLDPWD", ft_getenv(env_list, "PWD"), 'y');
+		ft_setenv(env_list, "OLDPWD", old_path, 'y');
 		path = NULL;
-		path = getcwd(path, 1024);
+		path = getcwd(path, 0);
 		ft_setenv(env_list, "PWD", path, 'y');
 		free(path);
 	}
+	free(old_path);
 	return (ret);
 }
