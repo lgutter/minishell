@@ -15,9 +15,12 @@ install:
     - sudo touch /tmp/printf
 before_script:
     - make test CV=1
+    - make MAIN=tests/srcs/empty_env_dup_sys_env_test.c CV=1 NAME=emptyenvtest
     - env
 script:
     - ./tests/minitest --verbose
+    - env -i ./tests/minitest --verbose
+    - env -i ./emptyenvtest
 after_success:
     - make gcov
     - bash <(curl -s https://codecov.io/bash) -X gcov
