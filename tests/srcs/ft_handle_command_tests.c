@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 09:17:23 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 09:24:11 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ Test(unit_ft_handle_command, basic_mandatory_handle_simple_command, .init = redi
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
 	cr_assert_stdout_eq_str("arg1 arg2 arg3\n");
+}
+
+Test(unit_ft_handle_command, basic_mandatory_handle_nonexec_command, .init = redirect_std_out)
+{
+	t_command	command;
+	int			ret;
+	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+
+	env->key = strdup("PATH");
+	env->value = strdup("/tmp:/bin:/usr/bin");
+	env->next = NULL;
+
+	command.input = strdup("printf arg1");
+	ret = ft_split_command(env, &command);
+	ret = ft_handle_command(env, command);
+	fflush(stdout);
+	cr_assert_eq(ret, 0);
+	cr_assert_stdout_eq_str("arg1");
 }
 
 Test(unit_ft_handle_command, basic_mandatory_handle_dollar_expansion_in_arg, .init = redirect_std_out)
