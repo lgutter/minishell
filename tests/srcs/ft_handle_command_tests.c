@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 12:28:20 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 13:08:56 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ Test(unit_ft_handle_command, basic_mandatory_handle_builtin_unsetenv, .init = re
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
 	cr_assert_eq(env->next, NULL);
-	cr_assert_str_eq(env->key, "");
-	cr_assert_str_eq(env->value, "");
+	cr_assert_str_eq(env->key, STATUS_CODE_KEY);
+	cr_assert_str_eq(env->value, "0");
 	cr_assert_stdout_eq_str("-");
 }
 
