@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/07 09:29:48 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 11:44:11 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 12:10:34 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ Test(unit_ft_exit_builtin, basic_mandatory_exit_42, .init = redirect_std_out)
 	command.argv = ft_strsplit("exit", ' ');
 	command.argc = 1;
 	command.envp = NULL;
+	command.path = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -71,6 +72,7 @@ Test(unit_ft_exit_builtin, basic_mandatory_error_no_exit_code, .init = redirect_
 	command.argv = ft_strsplit("exit", ' ');
 	command.argc = 1;
 	command.envp = NULL;
+	command.path = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -103,6 +105,7 @@ Test(unit_ft_exit_builtin, undefined_error_nothing_defined, .init = redirect_std
 	command.argv = NULL;
 	command.argc = 0;
 	command.envp = NULL;
+	command.path = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
