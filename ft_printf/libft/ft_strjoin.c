@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/18 16:52:17 by lgutter       #+#    #+#                 */
-/*   Updated: 2019/01/19 12:24:15 by lgutter       ########   odam.nl         */
+/*   Created: 2019/01/18 16:52:17 by lgutter        #+#    #+#                */
+/*   Updated: 2020/02/07 08:39:53 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,15 @@ char			*ft_strjoin(char const *string1, char const *string2)
 		return (NULL);
 	}
 	ret[in + dex] = '\0';
-	in = 0;
-	in = ft_strjoin_internal(ret, string1, in);
-	ft_strjoin_internal(ret, string2, in);
+	if (string1 == NULL && string2 != NULL)
+		ret = ft_strncpy(ret, string2, dex);
+	else if (string1 != NULL && string2 == NULL)
+		ret = ft_strncpy(ret, string1, in);
+	else if (string1 != NULL && string2 != NULL)
+	{
+		in = 0;
+		in = ft_strjoin_internal(ret, string1, in);
+		ft_strjoin_internal(ret, string2, in);
+	}
 	return (ret);
 }
