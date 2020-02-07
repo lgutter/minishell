@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 14:12:44 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 15:25:29 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 11:40:00 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ size_t	ft_free_str_array(char **array)
 	size_t index;
 
 	index = 0;
-	while (array[index] != NULL)
+	if (array != NULL)
 	{
-		free(array[index]);
-		array[index] = NULL;
-		index++;
+		while (array[index] != NULL)
+		{
+			free(array[index]);
+			array[index] = NULL;
+			index++;
+		}
+		free(array);
 	}
-	free(array);
 	return (index);
 }

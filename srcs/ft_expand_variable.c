@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:13:49 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 16:06:45 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/06 19:26:49 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,15 @@ static int		ft_expand_dollar(t_env *env_list, char **string)
 int				ft_expand_variable(t_env *env_list, char **string)
 {
 	char	*temp;
+	char	*value;
 	int		ret;
 
 	ret = 0;
 	temp = *string;
 	if (temp[0] == '~' && (temp[1] == '\0' || temp[1] == '/'))
 	{
-		temp = ft_strjoin(ft_getenv(env_list, "HOME"), (temp + 1));
+		value = ft_getenv(env_list, "HOME");
+		temp = ft_strjoin(value, (temp + 1));
 		if (temp == NULL)
 			return (ERR_MALLOCFAIL);
 		free(*string);

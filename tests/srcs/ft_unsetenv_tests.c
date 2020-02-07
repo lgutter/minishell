@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 20:25:34 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 21:07:56 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 13:16:03 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,9 @@ Test(unit_ft_unsetenv, mandatory_error_unset_non_existent_element, .init = redir
 	third->next = NULL;
 	ret = ft_unsetenv(env, "BAR");
 	cr_assert_eq(ret, ERR_ENVNOTFOUND);
+	dprintf(2, "-");
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: Environment key not found\n");
+	cr_assert_stderr_eq_str("-");
 }
 
 Test(unit_ft_unsetenv, mandatory_error_unset_NULL_list, .init = redirect_std_err)

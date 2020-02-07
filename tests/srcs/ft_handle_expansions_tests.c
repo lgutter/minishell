@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/22 15:33:58 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 22:19:22 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 08:45:59 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,35 @@ static void redirect_std_err(void)
 
 Test(unit_ft_handle_expansions, basic_mandatory_expand_only_tilde)
 {
-		t_errid errid;
-	t_env *env = ft_dup_sys_env(&errid);
+	t_env *env = (t_env *)malloc(sizeof(t_env) * 1);
 	char **argv = ft_strsplit("hello ~ test", ' ');
 	int ret;
 
+	env->key = strdup("HOME");
+	env->value = strdup("/home/criteriontest");
+	env->next = NULL;
 	ret = ft_handle_expansions(env, argv);
 	cr_assert_eq(ret, 0);
-	cr_assert_str_eq(argv[1], getenv("HOME"));
+	cr_assert_str_eq(argv[1], "/home/criteriontest");
+}
+
+Test(unit_ft_handle_expansions, basic_mandatory_expand_tilde_at_start)
+{
+	t_env *env = (t_env *)malloc(sizeof(t_env) * 1);
+	char **argv = ft_strsplit("hello ~/test", ' ');
+	int ret;
+
+	env->key = strdup("HOME");
+	env->value = strdup("/home/criteriontest");
+	env->next = NULL;
+	ret = ft_handle_expansions(env, argv);
+	cr_assert_eq(ret, 0);
+	cr_assert_str_eq(argv[1], "/home/criteriontest/test");
 }
 
 Test(unit_ft_handle_expansions, basic_error_expand_invalid_env_key, .init = redirect_std_err)
 {
-		t_errid errid;
+	t_errid errid;
 	t_env *env = ft_dup_sys_env(&errid);
 	char **argv = ft_strsplit("hello $doesnotexist test", ' ');
 	int ret;

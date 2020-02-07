@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 20:08:17 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/13 21:06:13 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 13:15:06 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			ft_unsetenv(t_env *env, const char *key)
 		previous = previous->next;
 	}
 	if (previous == NULL)
-		return (ft_print_error(ERR_ENVNOTFOUND));
+		return (ERR_ENVNOTFOUND);
 	current = previous->next;
 	free(current->key);
 	free(current->value);
