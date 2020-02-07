@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 15:16:37 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 13:53:35 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 13:47:55 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 /*
 **	the prompt to be displayed when input is expected.
 */
-# define SHELL_PROMPT "\033[38;5;75m -ish » \033[0;00m"
+# define SHELL_PROMPT "\033[38;5;75m-ish » \033[0;00m"
 
 /*
 **	the key for the status code in the environment.
