@@ -17,3 +17,4 @@ ft_cd_builtin_tests\
 ft_exit_builtin_tests\
 ft_echo_builtin_tests\
 ft_env_builtin_tests\
+ft_setenv_builtin_tests\

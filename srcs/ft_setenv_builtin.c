@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:48:05 by lgutter        #+#    #+#                */
-/*   Updated: 2020/01/31 14:14:15 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 12:39:29 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_key(char *key)
 	if (ft_isalpha(key[0]) != 1)
 	{
 		ft_dprintf(2, "setenv: Variable name must begin with a letter.\n");
-		return (-1);
+		return (1);
 	}
 	else
 	{
@@ -30,24 +30,12 @@ static int	check_key(char *key)
 			{
 				ft_dprintf(2, "setenv: Variable name must only contain ");
 				ft_dprintf(2, "alphanumerical characters.\n");
-				return (-1);
+				return (1);
 			}
 			index++;
 		}
 	}
 	return (0);
-}
-
-static void	update_envp(t_env *env_list, t_command *command)
-{
-	char **new_envp;
-
-	new_envp = ft_convert_env_to_envp(env_list);
-	if (new_envp != NULL)
-	{
-		ft_free_str_array(command->envp);
-		command->envp = new_envp;
-	}
 }
 
 int			ft_setenv_builtin(t_env *env_list, t_command *command)
@@ -69,9 +57,8 @@ int			ft_setenv_builtin(t_env *env_list, t_command *command)
 		if (ret == 0)
 		{
 			ret = ft_setenv(env_list, command->argv[1], value, 'y');
-			if (ret == 0)
-				update_envp(env_list, command);
 		}
 	}
+	ft_setstatus(env_list, ret);
 	return (ret);
 }
