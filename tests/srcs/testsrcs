@@ -13,3 +13,4 @@ ft_handle_command_tests\
 ft_split_command_tests\
 ft_find_executable_tests\
 ft_is_builtin_tests\
+ft_cd_builtin_tests\
