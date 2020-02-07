@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 13:04:48 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 14:32:19 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ Test(unit_ft_split_command, basic_mandatory_split_simple_command)
 	cr_assert_str_eq(command.argv[1], "arg1");
 	cr_assert_str_eq(command.argv[2], "arg2");
 	cr_assert_str_eq(command.argv[3], "arg3");
+	cr_assert_str_eq(command.envp[0], "TESTENVKEY=TESTENVVALUE");
+	cr_assert_eq(command.envp[1], NULL);
+	cr_assert_eq(command.path, NULL);
+}
+
+Test(unit_ft_split_command, basic_mandatory_split_single_char_command)
+{
+	t_command	command;
+	int			ret;
+	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+
+	env->key = strdup("TESTENVKEY");
+	env->value = strdup("TESTENVVALUE");
+	env->next = NULL;
+
+	command.input = strdup("t");
+	command.path = NULL;
+	ret = ft_split_command(env, &command);
+	cr_assert_eq(ret, 0);
+	cr_assert_eq(command.argc, 1);
+	cr_assert_str_eq(command.argv[0], "t");
 	cr_assert_str_eq(command.envp[0], "TESTENVKEY=TESTENVVALUE");
 	cr_assert_eq(command.envp[1], NULL);
 	cr_assert_eq(command.path, NULL);
