@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/07 09:29:48 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 10:04:02 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 11:14:39 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_cd_to_root, .init = redirect_std_err)
 
 	env->key = strdup("PWD");
 	env->value = getcwd(NULL, 0);
+	env->next = NULL;
 	command.input = strdup("cd /");
 	command.argv = ft_strsplit("cd /", ' ');
 	command.argc = 2;
@@ -54,6 +55,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_cd_to_home, .init = redirect_std_err)
 
 	env->key = strdup("HOME");
 	env->value = strdup("/");
+	env->next = NULL;
 	command.input = strdup("cd");
 	command.argv = ft_strsplit("cd", ' ');
 	command.argc = 1;
@@ -75,6 +77,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_cd_to_oldpwd, .init = redirect_std_out)
 
 	env->key = strdup("OLDPWD");
 	env->value = strdup("/");
+	env->next = NULL;
 	command.input = strdup("cd -");
 	command.argv = ft_strsplit("cd -", ' ');
 	command.argc = 2;
@@ -96,6 +99,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_error_cd_no_oldpwd, .init = redirect_st
 
 	env->key = strdup("PWD");
 	env->value = getcwd(NULL, 0);
+	env->next = NULL;
 	command.input = strdup("cd -");
 	command.argv = ft_strsplit("cd -", ' ');
 	command.argc = 2;
@@ -117,6 +121,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_error_cd_no_home, .init = redirect_std_
 
 	env->key = strdup("PWD");
 	env->value = getcwd(NULL, 0);
+	env->next = NULL;
 	command.input = strdup("cd");
 	command.argv = ft_strsplit("cd", ' ');
 	command.argc = 1;
@@ -138,6 +143,7 @@ Test(unit_ft_cd_builtin, basic_mandatory_error_cd_not_valid, .init = redirect_st
 
 	env->key = strdup("PWD");
 	env->value = getcwd(NULL, 0);
+	env->next = NULL;
 	command.input = strdup("cd foobar");
 	command.argv = ft_strsplit("cd foobar", ' ');
 	command.argc = 2;
