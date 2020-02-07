@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 09:00:47 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 09:13:06 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_error, .init = redire
 	env->next = env_path;
 	env_path->key = strdup("PATH");
 	env_path->value = strdup("/bin:/usr/bin");
-	env->next = NULL;
+	env_path->next = NULL;
 
 	command.input = strdup("ls ~/fooarg1 bararg2");
 	ret = ft_split_command(env, &command);
@@ -198,7 +198,7 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_not_found, .init = re
 	env->next = env_path;
 	env_path->key = strdup("PATH");
 	env_path->value = strdup("/usr/bin");
-	env->next = NULL;
+	env_path->next = NULL;
 
 	command.input = strdup("foobartest arg1 arg2");
 	command.path = NULL;
