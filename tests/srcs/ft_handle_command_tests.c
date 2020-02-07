@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 10:58:45 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/07 09:13:06 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/07 09:17:23 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_error, .init = redire
 	command.input = strdup("ls ~/fooarg1 bararg2");
 	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
-	cr_assert_neq(ret, 0);
+	cr_assert_eq(ret, 0);
+	cr_assert_neq(NULL, ft_getenv(env, STATUS_CODE_KEY));
 }
 
 Test(unit_ft_handle_command, basic_mandatory_error_command_not_found, .init = redirect_std_err)
