@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:13:49 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/06 19:26:49 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/10 17:16:08 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int		ft_expand_dollar(t_env *env_list, char **string)
 	return (0);
 }
 
-int				ft_expand_variable(t_env *env_list, char **string)
+static int		ft_expand_home(t_env *env_list, char **string)
 {
 	char	*temp;
 	char	*value;
@@ -66,18 +66,33 @@ int				ft_expand_variable(t_env *env_list, char **string)
 	if (temp[0] == '~' && (temp[1] == '\0' || temp[1] == '/'))
 	{
 		value = ft_getenv(env_list, "HOME");
-		temp = ft_strjoin(value, (temp + 1));
-		if (temp == NULL)
-			return (ERR_MALLOCFAIL);
-		free(*string);
-		*string = temp;
+		if (value != NULL)
+		{
+			temp = ft_strjoin(value, (temp + 1));
+			if (temp == NULL)
+				return (ERR_MALLOCFAIL);
+			free(*string);
+			*string = temp;
+		}
+	}
+	return (ret);
+}
+
+int				ft_expand_variable(t_env *env_list, char **string)
+{
+	int		ret;
+
+	ret = 0;
+	if ((*string)[0] == '~' && ((*string)[1] == '\0' || (*string)[1] == '/'))
+	{
+		ret = ft_expand_home(env_list, string);
 	}
 	while (ft_strchr(*string, '$') != NULL &&
 			ft_strchr(*string, '$') != &(*string)[ft_strlen(*string) - 1])
 	{
 		ret = ft_expand_dollar(env_list, string);
 		if (ret != 0)
-			break;
+			break ;
 	}
 	return (ret);
 }
