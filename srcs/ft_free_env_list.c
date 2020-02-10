@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 14:01:30 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 17:31:21 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/10 16:45:56 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_free_env_list(t_env *env_list)
 {
 	t_env *current;
-	t_env * previous;
+	t_env *previous;
 
 	current = env_list;
 	while (current != NULL)
