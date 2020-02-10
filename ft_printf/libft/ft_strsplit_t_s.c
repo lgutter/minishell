@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/21 18:29:22 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 21:17:40 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/10 16:51:47 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		ft_is_tab_space(int c)
 	{
 		return (1);
 	}
-		return (0);
+	return (0);
 }
 
 static size_t	ft_wordcount_t_s(char const *string)
