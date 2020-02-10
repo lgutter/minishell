@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/31 10:08:52 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/04 22:04:47 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/10 16:44:56 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*find_path(t_env *env_list, t_command *command)
 	return (path);
 }
 
-int		ft_cd_builtin(t_env *env_list, t_command *command)
+int			ft_cd_builtin(t_env *env_list, t_command *command)
 {
 	char	*path;
 	char	*old_path;

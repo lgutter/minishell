@@ -6,7 +6,7 @@
 /*   By: lgutter <lgutter@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 12:13:49 by lgutter        #+#    #+#                */
-/*   Updated: 2020/02/06 19:26:49 by lgutter       ########   odam.nl         */
+/*   Updated: 2020/02/10 16:46:15 by lgutter       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				ft_expand_variable(t_env *env_list, char **string)
 	{
 		ret = ft_expand_dollar(env_list, string);
 		if (ret != 0)
-			break;
+			break ;
 	}
 	return (ret);
 }
