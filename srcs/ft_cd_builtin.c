@@ -53,14 +53,14 @@ int			ft_cd_builtin(t_env *env_list, t_command *command)
 	ret = chdir(path);
 	ft_setstatus(env_list, ret);
 	if (ret != 0)
-	{
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path);
-	}
 	else
 	{
-		ft_setenv(env_list, "OLDPWD", old_path, 'y');
+		if (old_path != NULL)
+			ft_setenv(env_list, "OLDPWD", old_path, 'y');
 		path = getcwd(NULL, 0);
-		ft_setenv(env_list, "PWD", path, 'y');
+		if (path != NULL)
+			ft_setenv(env_list, "PWD", path, 'y');
 		free(path);
 	}
 	free(old_path);
