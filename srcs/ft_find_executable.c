@@ -56,6 +56,7 @@ static int	ft_traverse_paths(char **paths, t_command *command)
 		}
 		index++;
 	}
+	command->path = NULL;
 	return (-1);
 }
 

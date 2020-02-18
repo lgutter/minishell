@@ -13,28 +13,48 @@
 #include "minishell.h"
 #include "builtins.h"
 
+static int	check_access(t_env *env_list, char *path)
+{
+	if (access(path, F_OK) != 0)
+	{
+		ft_dprintf(2, "-ish: %s: no such file or directory\n", path);
+		ft_setstatus(env_list, ERR_CMD_NOT_FOUND);
+		return (ERR_CMD_NOT_FOUND);
+	}
+	if (access(path, X_OK) != 0)
+	{
+		ft_dprintf(2, "-ish: %s: access denied\n", path);
+		ft_setstatus(env_list, ERR_ACCESS);
+		return (ERR_ACCESS);
+	}
+	return (0);
+}
+
 static int	execute_command(t_env *env_list, t_command *command)
 {
 	int		stat_loc;
 	int		ret;
 	pid_t	pid;
 
-	ret = 0;
-	pid = fork();
-	if (pid == 0)
+	ret = check_access(env_list, command->path);
+	if (ret == 0)
 	{
-		execve(command->path, command->argv, command->envp);
-		exit(ft_print_error(ERR_EXECVE_FAILED));
-	}
-	else if (pid > 0)
-	{
-		wait(&stat_loc);
-		if (ft_setstatus(env_list, WEXITSTATUS(stat_loc)) != 0)
-			ret = WEXITSTATUS(stat_loc);
-	}
-	else
-	{
-		ret = ft_print_error(ERR_FORK_FAILED);
+		pid = fork();
+		if (pid == 0)
+		{
+			execve(command->path, command->argv, command->envp);
+			exit(ft_print_error(ERR_EXECVE_FAILED));
+		}
+		else if (pid > 0)
+		{
+			waitpid(pid, &stat_loc, 0);
+			if (ft_setstatus(env_list, WEXITSTATUS(stat_loc)) != 0)
+				ret = WEXITSTATUS(stat_loc);
+		}
+		else
+		{
+			ret = ft_print_error(ERR_FORK_FAILED);
+		}
 	}
 	return (ret);
 }
@@ -77,6 +97,7 @@ int			ft_handle_command(t_env *env_list, t_command command)
 		else
 		{
 			ft_dprintf(2, "-ish: %s: command not found\n", command.argv[0]);
+			ft_setstatus(env_list, ERR_CMD_NOT_FOUND);
 			ret = ERR_CMD_NOT_FOUND;
 		}
 	}

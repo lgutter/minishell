@@ -146,7 +146,7 @@ Test(unit_ft_setenv_builtin, basic_mandatory_error_invalid_key_digit_start, .ini
 	command.envp = NULL;
 	ret = ft_setenv_builtin(env, &command);
 	fflush(stderr);
-	cr_assert_stderr_eq_str("setenv: Variable name must begin with a letter.\n");
+	cr_assert_stderr_eq_str("setenv: Variable name must begin with a letter or underscore.\n");
 	cr_assert_eq(ret, 1);
 	cr_assert_str_eq(env->key, "FOO");
 	cr_assert_str_eq(env->value, "BAR");

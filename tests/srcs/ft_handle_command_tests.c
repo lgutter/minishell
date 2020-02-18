@@ -25,6 +25,12 @@ static void redirect_std_err(void)
 	cr_redirect_stderr();
 }
 
+static void redirect_std_err_out(void)
+{
+	cr_redirect_stdout();
+	cr_redirect_stderr();
+}
+
 Test(unit_ft_handle_command, basic_mandatory_handle_simple_command, .init = redirect_std_out)
 {
 	t_command	command;
@@ -59,6 +65,48 @@ Test(unit_ft_handle_command, basic_mandatory_handle_nonexec_command, .init = red
 	fflush(stdout);
 	cr_assert_eq(ret, 0);
 	cr_assert_stdout_eq_str("arg1");
+}
+
+Test(unit_ft_handle_command, basic_mandatory_error_handle_nonexec_path_only_invalid, .init = redirect_std_err_out)
+{
+	t_command	command;
+	int			ret;
+	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+
+	env->key = strdup("PATH");
+	env->value = strdup("/tmp");
+	env->next = NULL;
+
+	command.input = strdup("/tmp/printf");
+	ret = ft_split_command(env, &command);
+	ret = ft_handle_command(env, command);
+	printf("-");
+	fflush(stdout);
+	fflush(stderr);
+	cr_expect_eq(ret, ERR_ACCESS);
+	cr_assert_stdout_eq_str("-");
+	cr_assert_stderr_eq_str("-ish: /tmp/printf: access denied\n");
+}
+
+Test(unit_ft_handle_command, basic_mandatory_error_handle_nonexec_command_only_invalid, .init = redirect_std_err_out)
+{
+	t_command	command;
+	int			ret;
+	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+
+	env->key = strdup("PATH");
+	env->value = strdup("/tmp");
+	env->next = NULL;
+
+	command.input = strdup("printf");
+	ret = ft_split_command(env, &command);
+	ret = ft_handle_command(env, command);
+	printf("-");
+	fflush(stdout);
+	fflush(stderr);
+	cr_expect_eq(ret, ERR_CMD_NOT_FOUND);
+	cr_assert_stdout_eq_str("-");
+	cr_assert_stderr_eq_str("-ish: printf: command not found\n");
 }
 
 Test(unit_ft_handle_command, basic_mandatory_handle_dollar_expansion_in_arg, .init = redirect_std_out)
@@ -227,6 +275,35 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_not_found, .init = re
 	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: foobartest: command not found\n");
+	cr_expect_stderr_eq_str("-ish: foobartest: command not found\n");
+	cr_expect_str_eq((env_path->next)->key, "STATUS_CODE");
+	cr_expect_str_eq((env_path->next)->value, ft_itoa(ERR_CMD_NOT_FOUND));
+	cr_assert_eq(ret, ERR_CMD_NOT_FOUND);
+}
+
+Test(unit_ft_handle_command, basic_mandatory_error_path_not_found, .init = redirect_std_err)
+{
+	t_command	command;
+	int			ret;
+	t_env		*env = (t_env *)malloc(sizeof(t_env) * 1);
+	t_env		*env_path = (t_env *)malloc(sizeof(t_env) * 1);
+
+	env->key = strdup("HOME");
+	env->value = strdup("/Users/lgutter");
+	env->next = env_path;
+	env_path->key = strdup("PATH");
+	env_path->value = strdup("/usr/bin");
+	env_path->next = NULL;
+
+	command.input = strdup("foo/bar/test arg1 arg2");
+	command.path = NULL;
+	ret = ft_split_command(env, &command);
+	ret = ft_handle_command(env, command);
+	fflush(stderr);
+	cr_expect_stderr_eq_str("-ish: foo/bar/test: no such file or directory\n");
+	cr_assert_neq(NULL, env_path);
+	cr_assert_neq(NULL, env_path->next);
+	cr_expect_str_eq((env_path->next)->key, "STATUS_CODE");
+	cr_expect_str_eq((env_path->next)->value, ft_itoa(ERR_CMD_NOT_FOUND));
 	cr_assert_eq(ret, ERR_CMD_NOT_FOUND);
 }
