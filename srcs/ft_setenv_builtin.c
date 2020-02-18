@@ -17,9 +17,10 @@ static int	check_key(char *key)
 	size_t	index;
 
 	index = 0;
-	if (ft_isalpha(key[0]) != 1)
+	if (ft_isalpha(key[0]) != 1 && key[0] != '_')
 	{
-		ft_dprintf(2, "setenv: Variable name must begin with a letter.\n");
+		ft_dprintf(2, "setenv: Variable name must begin with ");
+		ft_dprintf(2, "a letter or underscore.\n");
 		return (1);
 	}
 	else
