@@ -51,10 +51,10 @@ int			ft_cd_builtin(t_env *env_list, t_command *command)
 		return (ERR_ENVNOTFOUND);
 	old_path = getcwd(NULL, 0);
 	ret = chdir(path);
+	ft_setstatus(env_list, ret);
 	if (ret != 0)
 	{
 		ft_dprintf(2, "cd: no such file or directory: %s\n", path);
-		ft_setstatus(env_list, ret);
 	}
 	else
 	{
