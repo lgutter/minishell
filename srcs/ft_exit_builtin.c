@@ -12,20 +12,42 @@
 
 #include "builtins.h"
 
-void	ft_exit_builtin(t_env *env_list, t_command *command)
+static int	str_is_number(char *string)
 {
-	int		exit_code;
-	char	*env_status;
+	size_t index;
+
+	index = 0;
+	while (string[index] != '\0')
+	{
+		if (string[index] < '0' || string[index] > '9')
+		{
+			return (0);
+		}
+		index++;
+	}
+	return (1);
+}
+
+void		ft_exit_builtin(t_env *env_list, t_command *command)
+{
+	unsigned char	exit_code;
+	char			*env_status;
 
 	env_status = ft_getenv(env_list, STATUS_CODE_KEY);
-	if (env_status == NULL)
+	exit_code = 1;
+	if (command->argc > 2)
+		ft_dprintf(2, "exit: Too many arguments, extra arguments ignored.\n");
+	if (command->argc >= 2)
 	{
-		exit_code = 0;
+		if (str_is_number(command->argv[1]) == 1)
+			exit_code = (unsigned char)ft_atoi(command->argv[1]);
+		else
+			ft_dprintf(2, "exit: First argument should be numeric.\n");
 	}
+	else if (env_status != NULL)
+		exit_code = (unsigned char)ft_atoi(env_status);
 	else
-	{
-		exit_code = ft_atoi(env_status);
-	}
+		exit_code = 0;
 	ft_free_command(command);
 	ft_free_env_list(env_list);
 	ft_printf("exit\n");
