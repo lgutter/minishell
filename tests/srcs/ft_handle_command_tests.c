@@ -227,6 +227,8 @@ Test(unit_ft_handle_command, basic_mandatory_error_command_not_found, .init = re
 	ret = ft_split_command(env, &command);
 	ret = ft_handle_command(env, command);
 	fflush(stderr);
-	cr_assert_stderr_eq_str("-ish: foobartest: command not found\n");
+	cr_expect_stderr_eq_str("-ish: foobartest: command not found\n");
+	cr_expect_str_eq((env_path->next)->key, "STATUS_CODE");
+	cr_expect_str_eq((env_path->next)->value, ft_itoa(ERR_CMD_NOT_FOUND));
 	cr_assert_eq(ret, ERR_CMD_NOT_FOUND);
 }

@@ -77,6 +77,7 @@ int			ft_handle_command(t_env *env_list, t_command command)
 		else
 		{
 			ft_dprintf(2, "-ish: %s: command not found\n", command.argv[0]);
+			ft_setstatus(env_list, ERR_CMD_NOT_FOUND);
 			ret = ERR_CMD_NOT_FOUND;
 		}
 	}
